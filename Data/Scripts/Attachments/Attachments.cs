@@ -29,6 +29,8 @@ namespace Digi.Attachments
     {
         public static bool init { get; private set; }
         
+        public const string ATTACHMENT_PANEL_TOP = "AttachmentTop";
+        
         public void Init()
         {
             Log.Init();
@@ -70,7 +72,7 @@ namespace Digi.Attachments
     public class AttachmentBase : MyGameLogicComponent
     {
         private bool tall = false;
-        private byte skip = 0;
+        private byte skip = 200;
         private byte justAttached = 0;
         
         private static BoundingSphereD sphere = new BoundingSphereD(Vector3D.Zero, 1);
@@ -79,6 +81,10 @@ namespace Digi.Attachments
         {
             Entity.NeedsUpdate |= MyEntityUpdateEnum.BEFORE_NEXT_FRAME | MyEntityUpdateEnum.EACH_FRAME;
             
+        }
+        
+        public override void UpdateOnceBeforeFrame()
+        {
             tall = (Entity as IMyCubeBlock).BlockDefinition.SubtypeId == "AttachmentBaseTall";
         }
         
@@ -90,8 +96,11 @@ namespace Digi.Attachments
                 
                 //MyAPIGateway.Utilities.ShowNotification("rotor="+(stator.Rotor != null)+"; "+(stator.IsAttached?"IsAttached; ":"")+(stator.PendingAttachment?"Pending; ":"")+(stator.IsLocked?"IsLocked":""), 16, MyFontEnum.Red);
                 
-                if(stator.IsWorking && (stator.PendingAttachment || stator.Rotor == null))
+                if(stator.PendingAttachment || stator.Rotor == null || stator.Rotor.Closed)
                 {
+                    if(!stator.Enabled)
+                        return;
+                    
                     if(++skip >= 15)
                     {
                         skip = 0;
@@ -102,7 +111,7 @@ namespace Digi.Attachments
                         {
                             var rotor = ent as IMyMotorRotor;
                             
-                            if(rotor != null && rotor.CubeGrid.Physics != null)
+                            if(rotor != null && rotor.CubeGrid.Physics != null && rotor.BlockDefinition.SubtypeName == Attachments.ATTACHMENT_PANEL_TOP)
                             {
                                 stator.Attach(rotor);
                                 justAttached = 5; // check if it's locked for the next 5 update frames including this one
@@ -110,10 +119,9 @@ namespace Digi.Attachments
                             }
                         }
                     }
-                }
-                
-                if(stator.Rotor == null || stator.Rotor.Closed)
+                    
                     return;
+                }
                 
                 if(justAttached > 0)
                 {
@@ -182,7 +190,7 @@ namespace Digi.Attachments
                 
                 gridObj.GridSizeEnum = MyCubeSize.Small;
                 gridObj.CubeBlocks[0].Min = new SerializableVector3I(-2, 0, -2);
-                gridObj.CubeBlocks[0].SubtypeName = "AttachmentTop";
+                gridObj.CubeBlocks[0].SubtypeName = Attachments.ATTACHMENT_PANEL_TOP;
                 
                 //gridObj.PositionAndOrientation = new MyPositionAndOrientation(stator.WorldMatrix.Translation, gridObj.PositionAndOrientation.Value.Forward, gridObj.PositionAndOrientation.Value.Up);
                 MyAPIGateway.Entities.RemapObjectBuilder(gridObj);
