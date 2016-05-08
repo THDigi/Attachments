@@ -10,6 +10,7 @@
       <Name>LargeBlocks</Name>
       <ItemIds>
         <string>MotorAdvancedStator/AttachmentBase</string>
+        <string>MotorAdvancedStator/AttachmentBaseTall</string>
       </ItemIds>
     </Category>  
   </CategoryClasses>

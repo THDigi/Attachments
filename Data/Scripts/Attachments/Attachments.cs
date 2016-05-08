@@ -1,31 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Timers;
 using Sandbox.Common;
-using Sandbox.Common.ModAPI;
-using Sandbox.Common.Components;
 using Sandbox.Common.ObjectBuilders;
 using Sandbox.Definitions;
-using Sandbox.Engine;
-using Sandbox.Engine.Physics;
-using Sandbox.Engine.Multiplayer;
 using Sandbox.Game;
 using Sandbox.Game.Entities;
 using Sandbox.Game.Gui;
 using Sandbox.ModAPI;
 using Sandbox.ModAPI.Interfaces;
 using VRage.Common.Utils;
+using VRage.Game;
+using VRage.Game.ModAPI;
 using VRageMath;
 using VRage;
 using VRage.ObjectBuilders;
 using VRage.Game.Components;
 using VRage.ModAPI;
 using VRage.Utils;
+
 using Digi.Utils;
 
 namespace Digi.Attachments
@@ -37,15 +31,27 @@ namespace Digi.Attachments
         
         public void Init()
         {
+            Log.Init();
             Log.Info("Initialized.");
             init = true;
         }
         
         protected override void UnloadData()
         {
-            Log.Info("Mod unloaded.");
+            try
+            {
+                if(init)
+                {
+                    init = false;
+                    Log.Info("Mod unloaded.");
+                }
+            }
+            catch(Exception e)
+            {
+                Log.Error(e);
+            }
+            
             Log.Close();
-            init = false;
         }
         
         public override void UpdateAfterSimulation()
@@ -60,83 +66,77 @@ namespace Digi.Attachments
         }
     }
     
-    [MyEntityComponentDescriptor(typeof(MyObjectBuilder_MotorAdvancedStator), "AttachmentBase")]
+    [MyEntityComponentDescriptor(typeof(MyObjectBuilder_MotorAdvancedStator), "AttachmentBase", "AttachmentBaseTall")]
     public class AttachmentBase : MyGameLogicComponent
     {
-        private MyObjectBuilder_EntityBase objectBuilder;
-        private IMyEntity topEnt;
-        private int skip = 99;
+        private bool tall = false;
+        private byte skip = 0;
+        private byte justAttached = 0;
+        
+        private static BoundingSphereD sphere = new BoundingSphereD(Vector3D.Zero, 1);
         
         public override void Init(MyObjectBuilder_EntityBase objectBuilder)
         {
-            this.objectBuilder = objectBuilder;
-            
             Entity.NeedsUpdate |= MyEntityUpdateEnum.BEFORE_NEXT_FRAME | MyEntityUpdateEnum.EACH_FRAME;
-        }
-        
-        public override void UpdateOnceBeforeFrame()
-        {
-            var block = Entity as IMyTerminalBlock;
+            
+            tall = (Entity as IMyCubeBlock).BlockDefinition.SubtypeId == "AttachmentBaseTall";
         }
         
         public override void UpdateAfterSimulation()
         {
             try
             {
-                if(topEnt == null)
+                var stator = Entity as IMyMotorStator;
+                
+                //MyAPIGateway.Utilities.ShowNotification("rotor="+(stator.Rotor != null)+"; "+(stator.IsAttached?"IsAttached; ":"")+(stator.PendingAttachment?"Pending; ":"")+(stator.IsLocked?"IsLocked":""), 16, MyFontEnum.Red);
+                
+                if(stator.IsWorking && (stator.PendingAttachment || stator.Rotor == null))
                 {
-                    if(++skip >= 10)
+                    if(++skip >= 15)
                     {
                         skip = 0;
-                        var obj = (Entity as IMyCubeBlock).GetObjectBuilderCubeBlock(false) as MyObjectBuilder_MotorBase;
+                        sphere.Center = stator.WorldMatrix.Translation;
+                        var ents = MyAPIGateway.Entities.GetEntitiesInSphere(ref sphere);
                         
-                        if(obj.RotorEntityId.HasValue && obj.RotorEntityId.Value != 0)
+                        foreach(var ent in ents)
                         {
-                            IMyEntity headEnt;
+                            var rotor = ent as IMyMotorRotor;
                             
-                            if(!MyAPIGateway.Entities.TryGetEntityById(obj.RotorEntityId.Value, out headEnt) || headEnt.Closed || headEnt.MarkedForClose)
-                                return;
-                            
-                            var headBlock = headEnt as IMyCubeBlock;
-                            
-                            if(headBlock.BlockDefinition.SubtypeId != "AttachmentTop")
-                                return;
-                            
-                            topEnt = headEnt;
-                        }
-                        else
-                        {
-                            (Entity as IMyMotorStator).ApplyAction("Attach");
+                            if(rotor != null && rotor.CubeGrid.Physics != null)
+                            {
+                                stator.Attach(rotor);
+                                justAttached = 5; // check if it's locked for the next 5 update frames including this one
+                                break;
+                            }
                         }
                     }
+                }
+                
+                if(stator.Rotor == null || stator.Rotor.Closed)
+                    return;
+                
+                if(justAttached > 0)
+                {
+                    justAttached--;
                     
-                    return;
+                    if(stator.IsLocked)
+                    {
+                        justAttached = 0;
+                        stator.ApplyAction("Force weld"); // disable safety lock after attaching it because the IsLocked check doesn't work when not attached
+                    }
                 }
                 
-                if(topEnt.Closed || topEnt.MarkedForClose)
-                {
-                    topEnt = null;
+                if(stator.IsLocked)
                     return;
-                }
                 
-                var baseBlock = Entity as IMyMotorStator;
+                var statorMatrix = stator.WorldMatrix;
+                var matrix = MatrixD.CreateFromDir(statorMatrix.GetDirectionVector(stator.Rotor.Orientation.TransformDirectionInverse(Base6Directions.Direction.Forward)),
+                                                   statorMatrix.GetDirectionVector(stator.Rotor.Orientation.TransformDirectionInverse(Base6Directions.Direction.Up)));
+                var offset = Vector3D.Transform(stator.Rotor.Position * stator.RotorGrid.GridSize, matrix);
+                matrix.Translation = statorMatrix.Translation - offset + (tall ? statorMatrix.Up : statorMatrix.Down) * (1 + stator.Displacement);
+                stator.RotorGrid.SetWorldMatrix(matrix);
                 
-                if(!baseBlock.IsAttached)
-                {
-                    topEnt = null;
-                    return;
-                }
-                
-                var topBlock = topEnt as IMyCubeBlock;
-                var topGrid = topBlock.CubeGrid as IMyCubeGrid;
-                var matrix = MatrixD.CreateFromDir(baseBlock.WorldMatrix.GetDirectionVector(topBlock.Orientation.TransformDirectionInverse(Base6Directions.Direction.Forward)),
-                                                   baseBlock.WorldMatrix.GetDirectionVector(topBlock.Orientation.TransformDirectionInverse(Base6Directions.Direction.Up)));
-                
-                var offset = Vector3D.Transform(topBlock.Position * topGrid.GridSize, matrix);
-                
-                matrix.Translation = baseBlock.WorldMatrix.Translation - offset + baseBlock.WorldMatrix.Down * (1 + baseBlock.Displacement);
-                
-                topGrid.SetWorldMatrix(matrix);
+                stator.ApplyAction("Force weld"); // re-enable safety lock after we know the top part is aligned properly
             }
             catch(Exception e)
             {
@@ -144,28 +144,17 @@ namespace Digi.Attachments
             }
         }
         
-        public override void Close()
-        {
-            objectBuilder = null;
-            
-            var block = Entity as IMyTerminalBlock;
-        }
-        
         public override MyObjectBuilder_EntityBase GetObjectBuilder(bool copy = false)
         {
-            return copy ? (MyObjectBuilder_EntityBase)objectBuilder.Clone() : objectBuilder;
+            return Entity.GetObjectBuilder(copy);
         }
     }
     
     [MyEntityComponentDescriptor(typeof(MyObjectBuilder_MotorAdvancedRotor), "AttachmentTopDelete", "AttachmentTopTallDelete")]
     public class AttachmentTopDelete : MyGameLogicComponent
     {
-        private MyObjectBuilder_EntityBase objectBuilder;
-        
         public override void Init(MyObjectBuilder_EntityBase objectBuilder)
         {
-            this.objectBuilder = objectBuilder;
-            
             Entity.NeedsUpdate |= MyEntityUpdateEnum.BEFORE_NEXT_FRAME;
         }
         
@@ -177,17 +166,13 @@ namespace Digi.Attachments
                     return;
                 
                 MyObjectBuilder_CubeGrid gridObj = null;
-                Vector3D center;
-                string subTypeId;
                 
-                {
-                    var block = Entity as IMyCubeBlock;
-                    subTypeId = block.BlockDefinition.SubtypeId;
-                    var grid = block.CubeGrid as IMyCubeGrid;
-                    center = block.WorldMatrix.Translation + block.WorldMatrix.Up * 1.2;
-                    gridObj = grid.GetObjectBuilder(false) as MyObjectBuilder_CubeGrid;
-                    grid.SyncObject.SendCloseRequest();
-                }
+                var rotor = Entity as IMyMotorRotor;
+                var stator = rotor.Stator;
+                var subTypeId = rotor.BlockDefinition.SubtypeId;
+                var grid = rotor.CubeGrid as IMyCubeGrid;
+                gridObj = grid.GetObjectBuilder(false) as MyObjectBuilder_CubeGrid;
+                grid.Close();
                 
                 if(gridObj == null)
                 {
@@ -197,17 +182,16 @@ namespace Digi.Attachments
                 
                 gridObj.GridSizeEnum = MyCubeSize.Small;
                 gridObj.CubeBlocks[0].Min = new SerializableVector3I(-2, 0, -2);
+                gridObj.CubeBlocks[0].SubtypeName = "AttachmentTop";
                 
-                if(subTypeId == "AttachmentTopTallDelete")
-                    gridObj.CubeBlocks[0].SubtypeName = "AttachmentTopTall";
-                else
-                    gridObj.CubeBlocks[0].SubtypeName = "AttachmentTop";
-                
+                //gridObj.PositionAndOrientation = new MyPositionAndOrientation(stator.WorldMatrix.Translation, gridObj.PositionAndOrientation.Value.Forward, gridObj.PositionAndOrientation.Value.Up);
                 MyAPIGateway.Entities.RemapObjectBuilder(gridObj);
-                var ent = MyAPIGateway.Entities.CreateFromObjectBuilderAndAdd(gridObj);
-                ent.SetPosition(center);
+                var newRotor = MyAPIGateway.Entities.CreateFromObjectBuilderAndAdd(gridObj) as IMyMotorRotor;
                 
-                MyAPIGateway.Multiplayer.SendEntitiesCreated(new List<MyObjectBuilder_EntityBase>(1) { gridObj });
+                stator.Attach(newRotor);
+                
+                // most likely not required as grids seem to be sent automatically when spawned from server
+                //MyAPIGateway.Multiplayer.SendEntitiesCreated(new List<MyObjectBuilder_EntityBase>(1) { gridObj });
             }
             catch(Exception e)
             {
@@ -215,14 +199,9 @@ namespace Digi.Attachments
             }
         }
         
-        public override void Close()
-        {
-            objectBuilder = null;
-        }
-        
         public override MyObjectBuilder_EntityBase GetObjectBuilder(bool copy = false)
         {
-            return copy ? (MyObjectBuilder_EntityBase)objectBuilder.Clone() : objectBuilder;
+            return Entity.GetObjectBuilder(copy);
         }
     }
 }
