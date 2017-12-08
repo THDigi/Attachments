@@ -7,6 +7,7 @@
         <TypeId>MotorAdvancedStator</TypeId>
         <SubtypeId>AttachmentBase</SubtypeId>
       </Id>
+      <BlockPairName>AttachmentBase</BlockPairName>
       <DisplayName>Attachment Base</DisplayName>
       <Icon>Textures\Icons\AttachmentBase.dds</Icon>
       <CubeSize>Large</CubeSize>
@@ -35,17 +36,23 @@
         <Model BuildPercentUpperBound="0.67" File="Models\AttachmentBase_Construction2.mwm" />
         <Model BuildPercentUpperBound="1.00" File="Models\AttachmentBase_Construction3.mwm" />
       </BuildProgressModels>
-      <BlockPairName>AttachmentBase</BlockPairName>
       <BuildTimeSeconds>20</BuildTimeSeconds>
       <PrimarySound>BlockRotor</PrimarySound>
       <RequiredPowerInput>0</RequiredPowerInput>
-      <MaxForceMagnitude>0.0001</MaxForceMagnitude>
+      <MaxForceMagnitude>3.36E+07</MaxForceMagnitude>
       <RotorPart>AttachmentTop</RotorPart>
       <RotorDisplacementMin>0</RotorDisplacementMin>
       <RotorDisplacementMax>0.0001</RotorDisplacementMax>
       <RotorDisplacementInModel>0</RotorDisplacementInModel>
       <DamageEffectId>214</DamageEffectId>
       <DamagedSound>ParticleElectrical</DamagedSound>
+
+      <BlockVariants>
+        <BlockVariant>
+          <TypeId>MotorAdvancedStator</TypeId>
+          <SubtypeId>AttachmentBaseTall</SubtypeId>
+        </BlockVariant>
+      </BlockVariants>
     </Definition>
 
     <Definition xsi:type="MyObjectBuilder_MotorStatorDefinition">
@@ -53,7 +60,9 @@
         <TypeId>MotorAdvancedStator</TypeId>
         <SubtypeId>AttachmentBaseTall</SubtypeId>
       </Id>
+      <BlockPairName>AttachmentBaseTall</BlockPairName>
       <DisplayName>Attachment Base Tall</DisplayName>
+      <GuiVisible>false</GuiVisible>
       <Icon>Textures\Icons\AttachmentBaseTall.dds</Icon>
       <CubeSize>Large</CubeSize>
       <BlockTopology>TriangleMesh</BlockTopology>
@@ -82,11 +91,10 @@
         <Model BuildPercentUpperBound="0.5" File="Models\AttachmentBaseTall_Construction1.mwm" />
         <Model BuildPercentUpperBound="1.0" File="Models\AttachmentBaseTall_Construction2.mwm" />
       </BuildProgressModels>
-      <BlockPairName>AttachmentBaseTall</BlockPairName>
       <BuildTimeSeconds>40</BuildTimeSeconds>
       <PrimarySound>BlockRotor</PrimarySound>
       <RequiredPowerInput>0</RequiredPowerInput>
-      <MaxForceMagnitude>0.0001</MaxForceMagnitude>
+      <MaxForceMagnitude>3.36E+07</MaxForceMagnitude>
       <RotorPart>AttachmentTop</RotorPart>
       <RotorDisplacementMin>0</RotorDisplacementMin>
       <RotorDisplacementMax>0.0001</RotorDisplacementMax>
@@ -101,7 +109,8 @@
         <TypeId>MotorAdvancedRotor</TypeId>
         <SubtypeId>AttachmentTop</SubtypeId>
       </Id>
-      <Public>false</Public>
+      <Public>true</Public>
+      <BlockPairName>AttachmentTop</BlockPairName>
       <DisplayName>Attachment Top</DisplayName>
       <Icon>Textures\Icons\AttachmentTop.dds</Icon>
       <CubeSize>Small</CubeSize>
@@ -128,7 +137,6 @@
         <Model BuildPercentUpperBound="0.67" File="Models\AttachmentTop_Construction2.mwm" />
         <Model BuildPercentUpperBound="1.00" File="Models\AttachmentTop_Construction3.mwm" />
       </BuildProgressModels>
-      <BlockPairName>AttachmentTop</BlockPairName>
       <MirroringY>Z</MirroringY>
       <MirroringZ>Y</MirroringZ>
       <EdgeType>Light</EdgeType>
@@ -143,7 +151,8 @@
         <SubtypeId>AttachmentTopDelete</SubtypeId>
       </Id>
       <Public>false</Public>
-      <DisplayName>Attachment Top (DO REMOVE)</DisplayName>
+      <BlockPairName>AttachmentTop</BlockPairName>
+      <DisplayName>Attachment Top</DisplayName>
       <Icon>Textures\FAKE.dds</Icon>
       <CubeSize>Large</CubeSize>
       <BlockTopology>TriangleMesh</BlockTopology>
@@ -152,13 +161,14 @@
       <Model>Models\Empty.mwm</Model>
       <UseModelIntersection>true</UseModelIntersection>
       <Components>
-        <Component Subtype="SteelPlate" Count="1" />
+        <Component Subtype="SteelPlate" Count="5" />
+        <Component Subtype="Construction" Count="5" />
+        <Component Subtype="SteelPlate" Count="5" />
       </Components>
-      <CriticalComponent Subtype="SteelPlate" Index="0" />
+      <CriticalComponent Subtype="Construction" Index="0" />
       <MountPoints>
         <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="0" EndY="0" />
       </MountPoints>
-      <BlockPairName>AttachmentTop</BlockPairName>
       <MirroringY>Z</MirroringY>
       <MirroringZ>Y</MirroringZ>
       <EdgeType>Light</EdgeType>
