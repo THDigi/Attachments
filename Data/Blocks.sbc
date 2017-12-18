@@ -152,7 +152,7 @@
       </Id>
       <Public>false</Public>
       <BlockPairName>AttachmentTop</BlockPairName>
-      <DisplayName>Attachment Top</DisplayName>
+      <DisplayName>Attachment Top (DO NOT USE)</DisplayName>
       <Icon>Textures\FAKE.dds</Icon>
       <CubeSize>Large</CubeSize>
       <BlockTopology>TriangleMesh</BlockTopology>
