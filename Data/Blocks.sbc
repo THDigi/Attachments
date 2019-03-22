@@ -9,6 +9,7 @@
       </Id>
       <BlockPairName>AttachmentBase</BlockPairName>
       <DisplayName>Attachment Base</DisplayName>
+      <PCU>150</PCU>
       <Icon>Textures\Icons\AttachmentBase.dds</Icon>
       <CubeSize>Large</CubeSize>
       <BlockTopology>TriangleMesh</BlockTopology>
@@ -17,10 +18,10 @@
       <Model>Models\AttachmentBase.mwm</Model>
       <UseModelIntersection>true</UseModelIntersection>
       <Components>
+        <Component Subtype="SteelPlate" Count="10" />
         <Component Subtype="Construction" Count="10" />
-        <Component Subtype="SteelPlate" Count="5" />
-        <Component Subtype="SmallTube" Count="4" />
-        <Component Subtype="Computer" Count="1" />
+        <Component Subtype="LargeTube" Count="4" />
+        <Component Subtype="Computer" Count="3" />
         <Component Subtype="SteelPlate" Count="10" />
       </Components>
       <CriticalComponent Subtype="Computer" Index="0" />
@@ -36,16 +37,31 @@
         <Model BuildPercentUpperBound="0.67" File="Models\AttachmentBase_Construction2.mwm" />
         <Model BuildPercentUpperBound="1.00" File="Models\AttachmentBase_Construction3.mwm" />
       </BuildProgressModels>
-      <BuildTimeSeconds>20</BuildTimeSeconds>
-      <PrimarySound>BlockRotor</PrimarySound>
+      <BuildTimeSeconds>10</BuildTimeSeconds>
+      <MirroringY>Z</MirroringY>
+      <MirroringZ>Y</MirroringZ>
+
+      <ResourceSinkGroup>Utility</ResourceSinkGroup>
       <RequiredPowerInput>0</RequiredPowerInput>
-      <MaxForceMagnitude>3.36E+07</MaxForceMagnitude>
+
+      <MaxForceMagnitude>1E9</MaxForceMagnitude>
+      <DangerousTorqueThreshold>3.36E+07</DangerousTorqueThreshold>
+
       <RotorPart>AttachmentTop</RotorPart>
       <RotorDisplacementMin>0</RotorDisplacementMin>
       <RotorDisplacementMax>0.0001</RotorDisplacementMax>
+      <RotorDisplacementMinSmall>0</RotorDisplacementMinSmall>
+      <RotorDisplacementMaxSmall>0.0001</RotorDisplacementMaxSmall>
       <RotorDisplacementInModel>0</RotorDisplacementInModel>
-      <DamageEffectId>214</DamageEffectId>
-      <DamagedSound>ParticleElectrical</DamagedSound>
+      <SafetyDetach>5</SafetyDetach>
+      <SafetyDetachMax>5</SafetyDetachMax>
+
+      <PrimarySound>BlockRotor</PrimarySound>
+      <DamageEffectName>Damage_HeavyMech_Damaged</DamageEffectName>
+      <DamagedSound>ParticleHeavyMech</DamagedSound>
+      <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
+      <DestroySound>WepSmallWarheadExpl</DestroySound>
+      <IsAirTight>false</IsAirTight>
 
       <BlockVariants>
         <BlockVariant>
@@ -63,6 +79,7 @@
       <BlockPairName>AttachmentBaseTall</BlockPairName>
       <DisplayName>Attachment Base Tall</DisplayName>
       <GuiVisible>false</GuiVisible>
+      <PCU>150</PCU>
       <Icon>Textures\Icons\AttachmentBaseTall.dds</Icon>
       <CubeSize>Large</CubeSize>
       <BlockTopology>TriangleMesh</BlockTopology>
@@ -71,13 +88,11 @@
       <Model>Models\AttachmentBaseTall.mwm</Model>
       <UseModelIntersection>true</UseModelIntersection>
       <Components>
-        <Component Subtype="Construction" Count="20" />
         <Component Subtype="SteelPlate" Count="15" />
-        <Component Subtype="SmallTube" Count="24" />
-        <Component Subtype="Motor" Count="6" />
-        <Component Subtype="Computer" Count="1" />
-        <Component Subtype="Construction" Count="10" />
-        <Component Subtype="SteelPlate" Count="10" />
+        <Component Subtype="Construction" Count="20" />
+        <Component Subtype="LargeTube" Count="4" />
+        <Component Subtype="Computer" Count="3" />
+        <Component Subtype="SteelPlate" Count="20" />
       </Components>
       <CriticalComponent Subtype="Motor" Index="0" />
       <MountPoints>
@@ -91,16 +106,32 @@
         <Model BuildPercentUpperBound="0.5" File="Models\AttachmentBaseTall_Construction1.mwm" />
         <Model BuildPercentUpperBound="1.0" File="Models\AttachmentBaseTall_Construction2.mwm" />
       </BuildProgressModels>
-      <BuildTimeSeconds>40</BuildTimeSeconds>
-      <PrimarySound>BlockRotor</PrimarySound>
+      <BuildTimeSeconds>20</BuildTimeSeconds>
+      <MirroringY>Z</MirroringY>
+      <MirroringZ>Y</MirroringZ>
+
+      <ResourceSinkGroup>Utility</ResourceSinkGroup>
       <RequiredPowerInput>0</RequiredPowerInput>
-      <MaxForceMagnitude>3.36E+07</MaxForceMagnitude>
+
+      <MaxForceMagnitude>1E9</MaxForceMagnitude>
+      <DangerousTorqueThreshold>3.36E+07</DangerousTorqueThreshold>
+
       <RotorPart>AttachmentTop</RotorPart>
       <RotorDisplacementMin>0</RotorDisplacementMin>
       <RotorDisplacementMax>0.0001</RotorDisplacementMax>
+      <RotorDisplacementMinSmall>0</RotorDisplacementMinSmall>
+      <RotorDisplacementMaxSmall>0.0001</RotorDisplacementMaxSmall>
       <RotorDisplacementInModel>0</RotorDisplacementInModel>
-      <DamageEffectId>214</DamageEffectId>
-      <DamagedSound>ParticleElectrical</DamagedSound>
+      <SafetyDetach>5</SafetyDetach>
+      <SafetyDetachMax>5</SafetyDetachMax>
+
+      <PrimarySound>BlockRotor</PrimarySound>
+      <DamageEffectName>Damage_HeavyMech_Damaged</DamageEffectName>
+      <DamagedSound>ParticleHeavyMech</DamagedSound>
+      <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
+      <DestroySound>WepSmallWarheadExpl</DestroySound>
+
+      <IsAirTight>false</IsAirTight>
     </Definition>
 
 
@@ -109,9 +140,9 @@
         <TypeId>MotorAdvancedRotor</TypeId>
         <SubtypeId>AttachmentTop</SubtypeId>
       </Id>
-      <Public>true</Public>
       <BlockPairName>AttachmentTop</BlockPairName>
       <DisplayName>Attachment Top</DisplayName>
+      <PCU>1</PCU>
       <Icon>Textures\Icons\AttachmentTop.dds</Icon>
       <CubeSize>Small</CubeSize>
       <BlockTopology>TriangleMesh</BlockTopology>
@@ -120,9 +151,8 @@
       <Model>Models\AttachmentTop.mwm</Model>
       <UseModelIntersection>true</UseModelIntersection>
       <Components>
-        <Component Subtype="SteelPlate" Count="5" />
-        <Component Subtype="Construction" Count="5" />
-        <Component Subtype="SteelPlate" Count="5" />
+        <Component Subtype="SteelPlate" Count="30" />
+        <Component Subtype="LargeTube" Count="10" />
       </Components>
       <CriticalComponent Subtype="Construction" Index="0" />
       <MountPoints>
@@ -137,12 +167,11 @@
         <Model BuildPercentUpperBound="0.67" File="Models\AttachmentTop_Construction2.mwm" />
         <Model BuildPercentUpperBound="1.00" File="Models\AttachmentTop_Construction3.mwm" />
       </BuildProgressModels>
+      <BuildTimeSeconds>8</BuildTimeSeconds>
       <MirroringY>Z</MirroringY>
       <MirroringZ>Y</MirroringZ>
-      <EdgeType>Light</EdgeType>
-      <BuildTimeSeconds>20</BuildTimeSeconds>
-      <DamageEffectId>214</DamageEffectId>
-      <DamagedSound>ParticleElectrical</DamagedSound>
+
+      <IsAirTight>false</IsAirTight>
     </Definition>
 
     <Definition>
@@ -161,18 +190,18 @@
       <Model>Models\Empty.mwm</Model>
       <UseModelIntersection>true</UseModelIntersection>
       <Components>
-        <Component Subtype="SteelPlate" Count="5" />
-        <Component Subtype="Construction" Count="5" />
-        <Component Subtype="SteelPlate" Count="5" />
+        <Component Subtype="SteelPlate" Count="30" />
+        <Component Subtype="LargeTube" Count="10" />
       </Components>
       <CriticalComponent Subtype="Construction" Index="0" />
       <MountPoints>
         <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="0" EndY="0" />
       </MountPoints>
+      <BuildTimeSeconds>1E9</BuildTimeSeconds>
       <MirroringY>Z</MirroringY>
       <MirroringZ>Y</MirroringZ>
-      <EdgeType>Light</EdgeType>
-      <BuildTimeSeconds>99999999</BuildTimeSeconds>
+
+      <IsAirTight>false</IsAirTight>
     </Definition>
 
   </CubeBlocks>
