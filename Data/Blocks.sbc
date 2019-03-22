@@ -2,7 +2,7 @@
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <CubeBlocks>
 
-    <Definition xsi:type="MyObjectBuilder_MotorStatorDefinition">
+    <Definition xsi:type="MyObjectBuilder_MotorAdvancedStatorDefinition">
       <Id>
         <TypeId>MotorAdvancedStator</TypeId>
         <SubtypeId>AttachmentBase</SubtypeId>
@@ -71,7 +71,7 @@
       </BlockVariants>
     </Definition>
 
-    <Definition xsi:type="MyObjectBuilder_MotorStatorDefinition">
+    <Definition xsi:type="MyObjectBuilder_MotorAdvancedStatorDefinition">
       <Id>
         <TypeId>MotorAdvancedStator</TypeId>
         <SubtypeId>AttachmentBaseTall</SubtypeId>
@@ -133,7 +133,6 @@
 
       <IsAirTight>false</IsAirTight>
     </Definition>
-
 
     <Definition>
       <Id>
