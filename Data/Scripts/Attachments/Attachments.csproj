@@ -41,6 +41,13 @@
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <LangVersion>6</LangVersion>
+    <CodeAnalysisRuleSet>Attachments.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <CodeAnalysisRuleSet>Attachments.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Sandbox.Common">
       <HintPath>C:\Steam\SteamApps\common\SpaceEngineers\Bin64\Sandbox.Common.dll</HintPath>
@@ -84,8 +91,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attachments.cs" />
+    <Compile Include="AttachmentBase.cs" />
+    <Compile Include="AttachmentsMod.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="AttachmentTopReplace.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\..\..\_SharedCode\SEWhitelistChecker.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Attachments.ruleset" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
