@@ -111,6 +111,7 @@
   <ItemGroup>
     <Compile Include="AttachmentBase.cs" />
     <Compile Include="AttachmentsMod.cs" />
+    <Compile Include="CombineFunc.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="AttachmentTop.cs" />
   </ItemGroup>

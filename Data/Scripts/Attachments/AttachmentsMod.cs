@@ -14,8 +14,6 @@ namespace Digi.Attachments
 
         public bool ParsedTerminalControls = false;
 
-        public readonly Dictionary<string, Func<IMyTerminalBlock, bool>> OriginalActionEnabledFunc = new Dictionary<string, Func<IMyTerminalBlock, bool>>();
-        public readonly Dictionary<string, Func<IMyTerminalBlock, bool>> OriginalControlVisibleFunc = new Dictionary<string, Func<IMyTerminalBlock, bool>>();
 
         public const string ATTACHMENT_BASE = "AttachmentBase";
         public const string ATTACHMENT_BASE_TALL = "AttachmentBaseTall";

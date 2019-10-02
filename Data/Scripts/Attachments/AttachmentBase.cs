@@ -114,11 +114,19 @@ namespace Digi.Attachments
                 return;
 
             AttachmentsMod.Instance.ParsedTerminalControls = true;
-            EditControls();
-            EditActions();
+
+            var customFunc = new Func<IMyTerminalBlock, bool>(Visible);
+
+            EditControls(customFunc);
+            EditActions(customFunc);
         }
 
-        private static void EditControls()
+        private static bool Visible(IMyTerminalBlock block)
+        {
+            return !AttachmentsMod.IsAttachmentBaseBlock(block.BlockDefinition);
+        }
+
+        private static void EditControls(Func<IMyTerminalBlock, bool> customFunc)
         {
             var controlIds = new HashSet<string>()
             {
@@ -142,26 +150,15 @@ namespace Digi.Attachments
 
             foreach(var c in controls)
             {
-                string id = c.Id;
-
-                if(controlIds.Contains(id))
+                if(controlIds.Contains(c.Id))
                 {
-                    // "append" to original Visible function by storing the existing one and calling it along with our condition.
-
-                    if(c.Visible != null)
-                        AttachmentsMod.Instance.OriginalControlVisibleFunc[id] = c.Visible;
-
-                    c.Visible = (b) =>
-                    {
-                        var originalFunc = AttachmentsMod.Instance.OriginalControlVisibleFunc.GetValueOrDefault(id, null);
-                        bool originalCondition = (originalFunc == null ? true : originalFunc.Invoke(b));
-                        return (originalCondition && !AttachmentsMod.IsAttachmentBaseBlock(b.BlockDefinition));
-                    };
+                    // append a custom condition after the original condition
+                    c.Visible = CombineFunc.Create(c.Visible, customFunc);
                 }
             }
         }
 
-        private static void EditActions()
+        private static void EditActions(Func<IMyTerminalBlock, bool> customFunc)
         {
             var actionIds = new HashSet<string>()
             {
@@ -193,21 +190,10 @@ namespace Digi.Attachments
 
             foreach(var a in actions)
             {
-                string id = a.Id;
-
-                if(actionIds.Contains(id))
+                if(actionIds.Contains(a.Id))
                 {
-                    // "append" to original Visible function by storing the existing one and calling it along with our condition.
-
-                    if(a.Enabled != null)
-                        AttachmentsMod.Instance.OriginalActionEnabledFunc[id] = a.Enabled;
-
-                    a.Enabled = (b) =>
-                    {
-                        var originalFunc = AttachmentsMod.Instance.OriginalActionEnabledFunc.GetValueOrDefault(id, null);
-                        bool originalCondition = (originalFunc == null ? true : originalFunc.Invoke(b));
-                        return (originalCondition && !AttachmentsMod.IsAttachmentBaseBlock(b.BlockDefinition));
-                    };
+                    // append a custom condition after the original condition
+                    a.Enabled = CombineFunc.Create(a.Enabled, customFunc);
                 }
             }
         }
