@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Sandbox.Common.ObjectBuilders;
-using Sandbox.ModAPI;
 using VRage.Game;
 using VRage.Game.Components;
 
@@ -14,16 +12,17 @@ namespace Digi.Attachments
 
         public bool ParsedTerminalControls = false;
 
+        public const string ATTACHMENT_BASE_SMALL = "AttachmentBaseSmall";
+        public const string ATTACHMENT_BASE_LARGE = "AttachmentBase";
+        public const string ATTACHMENT_BASE_LARGE_TALL = "AttachmentBaseTall";
+        public const string ATTACHMENT_TOP_SMALL = "AttachmentTop";
+        public const string ATTACHMENT_TOP_LARGE = "AttachmentTopLarge";
 
-        public const string ATTACHMENT_BASE = "AttachmentBase";
-        public const string ATTACHMENT_BASE_TALL = "AttachmentBaseTall";
-        public const string ATTACHMENT_TOP = "AttachmentTop";
-        public const string ATTACHMENT_TOP_DELETE = "AttachmentTopDelete";
-
-        private readonly List<MyDefinitionId> blockDefIds = new List<MyDefinitionId>()
+        private readonly List<MyDefinitionId> baseDefIds = new List<MyDefinitionId>()
         {
-            new MyDefinitionId(typeof(MyObjectBuilder_MotorAdvancedStator), ATTACHMENT_BASE),
-            new MyDefinitionId(typeof(MyObjectBuilder_MotorAdvancedStator), ATTACHMENT_BASE_TALL),
+            new MyDefinitionId(typeof(MyObjectBuilder_MotorAdvancedStator), ATTACHMENT_BASE_LARGE),
+            new MyDefinitionId(typeof(MyObjectBuilder_MotorAdvancedStator), ATTACHMENT_BASE_SMALL),
+            new MyDefinitionId(typeof(MyObjectBuilder_MotorAdvancedStator), ATTACHMENT_BASE_LARGE_TALL),
         };
 
         public override void LoadData()
@@ -38,7 +37,7 @@ namespace Digi.Attachments
 
         public static bool IsAttachmentBaseBlock(MyDefinitionId defId)
         {
-            return Instance.blockDefIds.Contains(defId);
+            return Instance.baseDefIds.Contains(defId);
         }
     }
 }

@@ -11,7 +11,10 @@ using VRageMath;
 
 namespace Digi.Attachments
 {
-    [MyEntityComponentDescriptor(typeof(MyObjectBuilder_MotorAdvancedStator), false, AttachmentsMod.ATTACHMENT_BASE, AttachmentsMod.ATTACHMENT_BASE_TALL)]
+    [MyEntityComponentDescriptor(typeof(MyObjectBuilder_MotorAdvancedStator), false,
+        AttachmentsMod.ATTACHMENT_BASE_SMALL,
+        AttachmentsMod.ATTACHMENT_BASE_LARGE,
+        AttachmentsMod.ATTACHMENT_BASE_LARGE_TALL)]
     public class AttachmentBase : MyGameLogicComponent
     {
         private IMyMotorStator stator;
@@ -35,7 +38,7 @@ namespace Digi.Attachments
 
                 EditTerminalControls();
 
-                isTall = (stator.BlockDefinition.SubtypeId == AttachmentsMod.ATTACHMENT_BASE_TALL);
+                isTall = (stator.BlockDefinition.SubtypeId == AttachmentsMod.ATTACHMENT_BASE_LARGE_TALL);
 
                 if(stator.CubeGrid.Physics == null)
                     return;

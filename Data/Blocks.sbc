@@ -8,7 +8,7 @@
         <SubtypeId>AttachmentBase</SubtypeId>
       </Id>
       <BlockPairName>AttachmentBase</BlockPairName>
-      <DisplayName>Attachment Base</DisplayName>
+      <DisplayName>Attachment Base Large</DisplayName>
       <PCU>150</PCU>
       <Icon>Textures\Icons\AttachmentBase.dds</Icon>
       <CubeSize>Large</CubeSize>
@@ -27,10 +27,10 @@
       <CriticalComponent Subtype="Computer" Index="0" />
       <MountPoints>
         <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1.0" EndY="1.0" />
-        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1.0" EndY="0.125" />
-        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1.0" EndY="0.125" />
-        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1.0" EndY="0.125" />
-        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1.0" EndY="0.125" />
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="1.0" EndY="0.1" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="1.0" EndY="0.1" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="1.0" EndY="0.1" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="1.0" EndY="0.1" />
       </MountPoints>
       <BuildProgressModels>
         <Model BuildPercentUpperBound="0.33" File="Models\AttachmentBase_Construction1.mwm" />
@@ -69,6 +69,68 @@
           <SubtypeId>AttachmentBaseTall</SubtypeId>
         </BlockVariant>
       </BlockVariants>
+    </Definition>
+
+    <Definition xsi:type="MyObjectBuilder_MotorAdvancedStatorDefinition">
+      <Id>
+        <TypeId>MotorAdvancedStator</TypeId>
+        <SubtypeId>AttachmentBaseSmall</SubtypeId>
+      </Id>
+      <BlockPairName>AttachmentBase</BlockPairName>
+      <DisplayName>Attachment Base Small</DisplayName>
+      <PCU>150</PCU>
+      <Icon>Textures\Icons\AttachmentBase.dds</Icon>
+      <CubeSize>Small</CubeSize>
+      <BlockTopology>TriangleMesh</BlockTopology>
+      <Size x="5" y="1" z="5" />
+      <ModelOffset x="0" y="0" z="0" />
+      <Model>Models\SmallToLarge\AttachmentBase.mwm</Model>
+      <UseModelIntersection>true</UseModelIntersection>
+      <Components>
+        <Component Subtype="SteelPlate" Count="10" />
+        <Component Subtype="Construction" Count="10" />
+        <Component Subtype="LargeTube" Count="4" />
+        <Component Subtype="Computer" Count="3" />
+        <Component Subtype="SteelPlate" Count="10" />
+      </Components>
+      <CriticalComponent Subtype="Computer" Index="0" />
+      <MountPoints>
+        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="5.0" EndY="5.0" />
+        <MountPoint Side="Front" StartX="0" StartY="0" EndX="5.0" EndY="0.5" />
+        <MountPoint Side="Back" StartX="0" StartY="0" EndX="5.0" EndY="0.5" />
+        <MountPoint Side="Left" StartX="0" StartY="0" EndX="5.0" EndY="0.5" />
+        <MountPoint Side="Right" StartX="0" StartY="0" EndX="5.0" EndY="0.5" />
+      </MountPoints>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="0.33" File="Models\SmallToLarge\AttachmentBase_Construction1.mwm" />
+        <Model BuildPercentUpperBound="0.67" File="Models\SmallToLarge\AttachmentBase_Construction2.mwm" />
+        <Model BuildPercentUpperBound="1.00" File="Models\SmallToLarge\AttachmentBase_Construction3.mwm" />
+      </BuildProgressModels>
+      <BuildTimeSeconds>10</BuildTimeSeconds>
+      <MirroringY>Z</MirroringY>
+      <MirroringZ>Y</MirroringZ>
+
+      <ResourceSinkGroup>Utility</ResourceSinkGroup>
+      <RequiredPowerInput>0</RequiredPowerInput>
+
+      <MaxForceMagnitude>1E9</MaxForceMagnitude>
+      <DangerousTorqueThreshold>3.36E+07</DangerousTorqueThreshold>
+
+      <RotorPart>AttachmentTop</RotorPart>
+      <RotorDisplacementMin>0</RotorDisplacementMin>
+      <RotorDisplacementMax>0.0001</RotorDisplacementMax>
+      <RotorDisplacementMinSmall>0</RotorDisplacementMinSmall>
+      <RotorDisplacementMaxSmall>0.0001</RotorDisplacementMaxSmall>
+      <RotorDisplacementInModel>0</RotorDisplacementInModel>
+      <SafetyDetach>5</SafetyDetach>
+      <SafetyDetachMax>5</SafetyDetachMax>
+
+      <PrimarySound>BlockRotor</PrimarySound>
+      <DamageEffectName>Damage_HeavyMech_Damaged</DamageEffectName>
+      <DamagedSound>ParticleHeavyMech</DamagedSound>
+      <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
+      <DestroySound>WepSmallWarheadExpl</DestroySound>
+      <IsAirTight>false</IsAirTight>
     </Definition>
 
     <Definition xsi:type="MyObjectBuilder_MotorAdvancedStatorDefinition">
@@ -140,7 +202,7 @@
         <SubtypeId>AttachmentTop</SubtypeId>
       </Id>
       <BlockPairName>AttachmentTop</BlockPairName>
-      <DisplayName>Attachment Top</DisplayName>
+      <DisplayName>Attachment Top Small</DisplayName>
       <PCU>1</PCU>
       <Icon>Textures\Icons\AttachmentTop.dds</Icon>
       <CubeSize>Small</CubeSize>
@@ -155,11 +217,11 @@
       </Components>
       <CriticalComponent Subtype="Construction" Index="0" />
       <MountPoints>
-        <MountPoint Side="Top" StartX="0" StartY="0" EndX="5" EndY="5" />
-        <MountPoint Side="Front" StartX="0" StartY="0.5" EndX="5.0" EndY="1.0" />
-        <MountPoint Side="Back" StartX="0" StartY="0.5" EndX="5.0" EndY="1.0" />
-        <MountPoint Side="Left" StartX="0" StartY="0.5" EndX="5.0" EndY="1.0" />
-        <MountPoint Side="Right" StartX="0" StartY="0.5" EndX="5.0" EndY="1.0" />
+        <MountPoint Side="Top" StartX="0.0" StartY="0.0" EndX="5.0" EndY="5.0" />
+        <MountPoint Side="Front" StartX="0.0" StartY="0.5" EndX="5.0" EndY="1.0" />
+        <MountPoint Side="Back" StartX="0.0" StartY="0.5" EndX="5.0" EndY="1.0" />
+        <MountPoint Side="Left" StartX="0.0" StartY="0.5" EndX="5.0" EndY="1.0" />
+        <MountPoint Side="Right" StartX="0.0" StartY="0.5" EndX="5.0" EndY="1.0" />
       </MountPoints>
       <BuildProgressModels>
         <Model BuildPercentUpperBound="0.33" File="Models\AttachmentTop_Construction1.mwm" />
@@ -176,17 +238,17 @@
     <Definition>
       <Id>
         <TypeId>MotorAdvancedRotor</TypeId>
-        <SubtypeId>AttachmentTopDelete</SubtypeId>
+        <SubtypeId>AttachmentTopLarge</SubtypeId>
       </Id>
-      <Public>false</Public>
       <BlockPairName>AttachmentTop</BlockPairName>
-      <DisplayName>Attachment Top (DO NOT USE)</DisplayName>
-      <Icon>Textures\FAKE.dds</Icon>
+      <DisplayName>Attachment Top Large</DisplayName>
+      <PCU>1</PCU>
+      <Icon>Textures\Icons\AttachmentTop.dds</Icon>
       <CubeSize>Large</CubeSize>
       <BlockTopology>TriangleMesh</BlockTopology>
       <Size x="1" y="1" z="1" />
       <ModelOffset x="0" y="0" z="0" />
-      <Model>Models\Empty.mwm</Model>
+      <Model>Models\SmallToLarge\AttachmentTop.mwm</Model>
       <UseModelIntersection>true</UseModelIntersection>
       <Components>
         <Component Subtype="SteelPlate" Count="30" />
@@ -194,9 +256,18 @@
       </Components>
       <CriticalComponent Subtype="Construction" Index="0" />
       <MountPoints>
-        <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="0" EndY="0" />
+        <MountPoint Side="Top" StartX="0.0" StartY="0.0" EndX="1.0" EndY="1.0" />
+        <MountPoint Side="Front" StartX="0.0" StartY="0.9" EndX="1.0" EndY="1.0" />
+        <MountPoint Side="Back" StartX="0.0" StartY="0.9" EndX="1.0" EndY="1.0" />
+        <MountPoint Side="Left" StartX="0.0" StartY="0.9" EndX="1.0" EndY="1.0" />
+        <MountPoint Side="Right" StartX="0.0" StartY="0.9" EndX="1.0" EndY="1.0" />
       </MountPoints>
-      <BuildTimeSeconds>1E9</BuildTimeSeconds>
+      <BuildProgressModels>
+        <Model BuildPercentUpperBound="0.33" File="Models\SmallToLarge\AttachmentTop_Construction1.mwm" />
+        <Model BuildPercentUpperBound="0.67" File="Models\SmallToLarge\AttachmentTop_Construction2.mwm" />
+        <Model BuildPercentUpperBound="1.00" File="Models\SmallToLarge\AttachmentTop_Construction3.mwm" />
+      </BuildProgressModels>
+      <BuildTimeSeconds>8</BuildTimeSeconds>
       <MirroringY>Z</MirroringY>
       <MirroringZ>Y</MirroringZ>
 
