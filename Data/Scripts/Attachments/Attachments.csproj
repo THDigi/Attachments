@@ -112,7 +112,7 @@
     <Compile Include="AttachmentBase.cs" />
     <Compile Include="AttachmentsMod.cs" />
     <Compile Include="Log.cs" />
-    <Compile Include="AttachmentTopReplace.cs" />
+    <Compile Include="AttachmentTop.cs" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\..\..\..\_SharedCode\SEWhitelistChecker.dll" />
