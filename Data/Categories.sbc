@@ -12,6 +12,17 @@
         <string>MotorAdvancedStator/AttachmentBase</string>
         <string>MotorAdvancedStator/AttachmentBaseTall</string>
       </ItemIds>
-    </Category>  
+    </Category>
+    <Category xsi:type="MyObjectBuilder_GuiBlockCategoryDefinition">
+      <Id>
+        <TypeId>GuiBlockCategoryDefinition</TypeId>
+        <SubtypeId/>
+      </Id>
+      <DisplayName>DisplayName_Category_SmallBlocks</DisplayName>
+      <Name>SmallBlocks</Name>
+      <ItemIds>
+        <string>MotorAdvancedStator/AttachmentBaseSmall</string>
+      </ItemIds>
+    </Category>
   </CategoryClasses>
 </Definitions>
