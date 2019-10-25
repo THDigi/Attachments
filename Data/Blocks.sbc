@@ -62,13 +62,6 @@
       <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
       <DestroySound>WepSmallWarheadExpl</DestroySound>
       <IsAirTight>false</IsAirTight>
-
-      <BlockVariants>
-        <BlockVariant>
-          <TypeId>MotorAdvancedStator</TypeId>
-          <SubtypeId>AttachmentBaseTall</SubtypeId>
-        </BlockVariant>
-      </BlockVariants>
     </Definition>
 
     <Definition xsi:type="MyObjectBuilder_MotorAdvancedStatorDefinition">
