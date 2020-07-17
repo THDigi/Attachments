@@ -149,7 +149,7 @@
         <Component Subtype="Computer" Count="3" />
         <Component Subtype="SteelPlate" Count="20" />
       </Components>
-      <CriticalComponent Subtype="Motor" Index="0" />
+      <CriticalComponent Subtype="Computer" Index="0" />
       <MountPoints>
         <MountPoint Side="Bottom" StartX="0" StartY="0" EndX="1.0" EndY="1.0" />
         <MountPoint Side="Front" StartX="0" StartY="0" EndX="1.0" EndY="0.9" />
@@ -208,7 +208,7 @@
         <Component Subtype="SteelPlate" Count="30" />
         <Component Subtype="LargeTube" Count="10" />
       </Components>
-      <CriticalComponent Subtype="Construction" Index="0" />
+      <CriticalComponent Subtype="LargeTube" Index="0" />
       <MountPoints>
         <MountPoint Side="Top" StartX="0.0" StartY="0.0" EndX="5.0" EndY="5.0" />
         <MountPoint Side="Front" StartX="0.0" StartY="0.5" EndX="5.0" EndY="1.0" />
@@ -247,7 +247,7 @@
         <Component Subtype="SteelPlate" Count="30" />
         <Component Subtype="LargeTube" Count="10" />
       </Components>
-      <CriticalComponent Subtype="Construction" Index="0" />
+      <CriticalComponent Subtype="LargeTube" Index="0" />
       <MountPoints>
         <MountPoint Side="Top" StartX="0.0" StartY="0.0" EndX="1.0" EndY="1.0" />
         <MountPoint Side="Front" StartX="0.0" StartY="0.9" EndX="1.0" EndY="1.0" />
