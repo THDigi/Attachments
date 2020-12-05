@@ -18,8 +18,8 @@
       <DisplayName>Attachment Tops</DisplayName>
       <Description>The top plate for attaching to base attachment plates.</Description>
       <Blocks>
-        <Block Type="MyObjectBuilder_MotorAdvancedRotor" Subtype="AttachmentTop" />
         <Block Type="MyObjectBuilder_MotorAdvancedRotor" Subtype="AttachmentTopLarge" />
+        <Block Type="MyObjectBuilder_MotorAdvancedRotor" Subtype="AttachmentTop" />
       </Blocks>
     </BlockVariantGroup>
   </BlockVariantGroups>
