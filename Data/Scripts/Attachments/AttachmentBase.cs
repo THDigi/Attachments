@@ -108,6 +108,9 @@ namespace Digi.Attachments
             var offset = Vector3D.Transform(stator.Top.Position * stator.TopGrid.GridSize, matrix);
             matrix.Translation = statorMatrix.Translation - offset + (isTall ? statorMatrix.Up : statorMatrix.Down) * (1 + stator.Displacement);
 
+            if(stator.TopGrid.WorldMatrix.EqualsFast(ref matrix, 0.01))
+                return; // already close enough, skip!
+
             stator.TopGrid.SetWorldMatrix(matrix);
         }
 
