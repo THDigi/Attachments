@@ -4,21 +4,12 @@
     <BlockVariantGroup>
       <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="AttachmentBase" />
       <Icon>Textures\Icons\AttachmentBase.dds</Icon>
-      <DisplayName>Attachment Bases</DisplayName>
-      <Description>The base plate for attaching the other grid size.</Description>
+      <DisplayName>Attachments</DisplayName>
       <Blocks>
         <Block Type="MyObjectBuilder_MotorAdvancedStator" Subtype="AttachmentBase" />
-        <Block Type="MyObjectBuilder_MotorAdvancedStator" Subtype="AttachmentBaseSmall" />
         <Block Type="MyObjectBuilder_MotorAdvancedStator" Subtype="AttachmentBaseTall" />
-      </Blocks>
-    </BlockVariantGroup>
-    <BlockVariantGroup>
-      <Id Type="MyObjectBuilder_BlockVariantGroup" Subtype="AttachmentTop" />
-      <Icon>Textures\Icons\AttachmentTop.dds</Icon>
-      <DisplayName>Attachment Tops</DisplayName>
-      <Description>The top plate for attaching to base attachment plates.</Description>
-      <Blocks>
         <Block Type="MyObjectBuilder_MotorAdvancedRotor" Subtype="AttachmentTopLarge" />
+        <Block Type="MyObjectBuilder_MotorAdvancedStator" Subtype="AttachmentBaseSmall" />
         <Block Type="MyObjectBuilder_MotorAdvancedRotor" Subtype="AttachmentTop" />
       </Blocks>
     </BlockVariantGroup>

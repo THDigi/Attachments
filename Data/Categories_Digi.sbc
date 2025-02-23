@@ -1,17 +1,18 @@
 <?xml version="1.0"  encoding="utf-8"?>
 <Definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <CategoryClasses>
-    <Category xsi:type="MyObjectBuilder_GuiBlockCategoryDefinition">
-      <Id>
-        <TypeId>GuiBlockCategoryDefinition</TypeId>
-        <SubtypeId/>
-      </Id>
-      <DisplayName>+ Digi</DisplayName>
-      <Name>z-mod-digi</Name>
-      <ItemIds>
-        <string>AttachmentBase</string>
-        <string>AttachmentBaseTall</string>
-      </ItemIds>
-    </Category>
-  </CategoryClasses>
+    <CategoryClasses>
+        <Category xsi:type="MyObjectBuilder_GuiBlockCategoryDefinition">
+            <Id>
+                <TypeId>GuiBlockCategoryDefinition</TypeId>
+                <SubtypeId/>
+            </Id>
+            <DisplayName>+ Digi</DisplayName>
+            <Name>z-mod-digi</Name>
+            <ItemIds>
+                <string>MotorAdvancedStator/AttachmentBase</string>
+                <string>MotorAdvancedStator/AttachmentBaseTall</string>
+                <string>MotorAdvancedStator/AttachmentBaseSmall</string>
+            </ItemIds>
+        </Category>
+    </CategoryClasses>
 </Definitions>

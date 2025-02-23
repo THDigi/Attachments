@@ -9,6 +9,7 @@
       </Id>
       <BlockPairName>AttachmentBase</BlockPairName>
       <DisplayName>Attachment Base Large</DisplayName>
+      <Description>A large-grid base that allows attaching small-grid blocks.</Description>
       <PCU>150</PCU>
       <Icon>Textures\Icons\AttachmentBase.dds</Icon>
       <CubeSize>Large</CubeSize>
@@ -56,7 +57,7 @@
       <SafetyDetach>5</SafetyDetach>
       <SafetyDetachMax>5</SafetyDetachMax>
 
-      <PrimarySound>BlockRotor</PrimarySound>
+      <PrimarySound></PrimarySound>
       <DamageEffectName>Damage_HeavyMech_Damaged</DamageEffectName>
       <DamagedSound>ParticleHeavyMech</DamagedSound>
       <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
@@ -71,6 +72,7 @@
       </Id>
       <BlockPairName>AttachmentBase</BlockPairName>
       <DisplayName>Attachment Base Small</DisplayName>
+      <Description>A small-grid base that allows attaching large-grid blocks.</Description>
       <PCU>150</PCU>
       <Icon>Textures\Icons\AttachmentBase.dds</Icon>
       <CubeSize>Small</CubeSize>
@@ -118,7 +120,7 @@
       <SafetyDetach>5</SafetyDetach>
       <SafetyDetachMax>5</SafetyDetachMax>
 
-      <PrimarySound>BlockRotor</PrimarySound>
+      <PrimarySound></PrimarySound>
       <DamageEffectName>Damage_HeavyMech_Damaged</DamageEffectName>
       <DamagedSound>ParticleHeavyMech</DamagedSound>
       <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
@@ -133,7 +135,8 @@
       </Id>
       <BlockPairName>AttachmentBaseTall</BlockPairName>
       <DisplayName>Attachment Base Tall</DisplayName>
-      <GuiVisible>false</GuiVisible>
+      <Description>A large-grid base that allows attaching small-grid blocks.
+This variant occupies a full large slot to be seamless and is airtight.</Description>
       <PCU>150</PCU>
       <Icon>Textures\Icons\AttachmentBaseTall.dds</Icon>
       <CubeSize>Large</CubeSize>
@@ -180,13 +183,13 @@
       <SafetyDetach>5</SafetyDetach>
       <SafetyDetachMax>5</SafetyDetachMax>
 
-      <PrimarySound>BlockRotor</PrimarySound>
+      <PrimarySound></PrimarySound>
       <DamageEffectName>Damage_HeavyMech_Damaged</DamageEffectName>
       <DamagedSound>ParticleHeavyMech</DamagedSound>
       <DestroyEffect>BlockDestroyedExplosion_Large</DestroyEffect>
       <DestroySound>WepSmallWarheadExpl</DestroySound>
 
-      <IsAirTight>false</IsAirTight>
+      <IsAirTight>true</IsAirTight>
     </Definition>
 
     <Definition>
@@ -196,6 +199,7 @@
       </Id>
       <BlockPairName>AttachmentTop</BlockPairName>
       <DisplayName>Attachment Top Small</DisplayName>
+      <Description>A small-grid top plate for manually attaching to the other base plates.</Description>
       <PCU>1</PCU>
       <Icon>Textures\Icons\AttachmentTop.dds</Icon>
       <CubeSize>Small</CubeSize>
@@ -235,6 +239,7 @@
       </Id>
       <BlockPairName>AttachmentTop</BlockPairName>
       <DisplayName>Attachment Top Large</DisplayName>
+      <Description>A large-grid top plate for manually attaching to the other base plates.</Description>
       <PCU>1</PCU>
       <Icon>Textures\Icons\AttachmentTop.dds</Icon>
       <CubeSize>Large</CubeSize>

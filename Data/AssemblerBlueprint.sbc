@@ -3,6 +3,8 @@
   <BlueprintClassEntries>
     <Entry Class="LargeBlocks" BlueprintSubtypeId="MotorAdvancedStator/AttachmentBase" />
     <Entry Class="LargeBlocks" BlueprintSubtypeId="MotorAdvancedStator/AttachmentBaseTall" />
+    <Entry Class="SmallBlocks" BlueprintSubtypeId="MotorAdvancedStator/AttachmentTop" />
     <Entry Class="SmallBlocks" BlueprintSubtypeId="MotorAdvancedStator/AttachmentBaseSmall" />
+    <Entry Class="LargeBlocks" BlueprintSubtypeId="MotorAdvancedStator/AttachmentTopLarge" />
   </BlueprintClassEntries>
 </Definitions>
