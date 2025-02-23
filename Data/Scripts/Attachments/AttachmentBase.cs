@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using Sandbox.Common.ObjectBuilders;
 using Sandbox.Definitions;
+using Sandbox.Game.Entities;
 using Sandbox.ModAPI;
 using Sandbox.ModAPI.Interfaces.Terminal;
 using VRage.Game.Components;
+using VRage.Game.ModAPI;
 using VRage.ModAPI;
 using VRage.ObjectBuilders;
 using VRageMath;
@@ -17,8 +19,9 @@ namespace Digi.Attachments
         AttachmentsMod.ATTACHMENT_BASE_LARGE_TALL)]
     public class AttachmentBase : MyGameLogicComponent
     {
-        private IMyMotorStator stator;
-        private bool isTall = false;
+        IMyMotorStator stator;
+        bool isTall = false;
+        MyCubeGrid LinkedTo;
 
         public override void Init(MyObjectBuilder_EntityBase objectBuilder)
         {
@@ -54,6 +57,46 @@ namespace Digi.Attachments
                 }
 
                 NeedsUpdate = MyEntityUpdateEnum.EACH_FRAME;
+
+                stator.OnAttachedChanged += Stator_OnAttachedChanged;
+                Stator_OnAttachedChanged(stator);
+            }
+            catch(Exception e)
+            {
+                Log.Error(e);
+            }
+        }
+
+        void Stator_OnAttachedChanged(IMyMechanicalConnectionBlock _)
+        {
+            try
+            {
+                MyCubeGrid thisGrid = (MyCubeGrid)stator.CubeGrid;
+                MyCubeGrid attachedGrid = stator.TopGrid as MyCubeGrid;
+                long linkId = stator.EntityId;
+
+                if(attachedGrid != null) // attached
+                {
+                    if(LinkedTo != null)
+                    {
+                        MyCubeGridGroups.Static.BreakLink(GridLinkTypeEnum.NoContactDamage, linkId, thisGrid, LinkedTo);
+                        LinkedTo = null;
+                    }
+
+                    if(LinkedTo == null)
+                    {
+                        MyCubeGridGroups.Static.CreateLink(GridLinkTypeEnum.NoContactDamage, linkId, thisGrid, attachedGrid);
+                        LinkedTo = attachedGrid;
+                    }
+                }
+                else // detached
+                {
+                    if(LinkedTo != null)
+                    {
+                        MyCubeGridGroups.Static.BreakLink(GridLinkTypeEnum.NoContactDamage, linkId, thisGrid, LinkedTo);
+                        LinkedTo = null;
+                    }
+                }
             }
             catch(Exception e)
             {
